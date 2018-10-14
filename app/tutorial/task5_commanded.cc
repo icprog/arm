@@ -34,8 +34,8 @@ public:
     MY_Temperature_Transducer() {}
 
     static void sense(unsigned int dev, Smart_Data<MY_Temperature_Transducer> * data) {
-        cout << "MY_Temperature_Transducer::sense(dev=" << dev << ")" << endl;
         data->_value = sensor.get();
+		cout << "NODO: Temperatura = " << (*data) << ", localizacao = " << data->location() << ", tempo = " << data->time() <<endl;
     }
 
     static void actuate(unsigned int dev, Smart_Data<MY_Temperature_Transducer> * data, const Smart_Data<MY_Temperature_Transducer>::Value & command) { }
@@ -60,7 +60,7 @@ int main()
     // EPOSMote III led pin
     Switch_Sensor s(0, 'C', 3, GPIO::OUT); // dev=0, pin=C3, direction=OUT
     // Local SmartData constructor
-    Smart_Data<Switch_Sensor> my_led(0, 1000000, /*mode*/); /* TODO: Complete the constructor parameters */
+    Smart_Data<Switch_Sensor> my_led(0, 1000000, Smart_Data<Switch_Sensor>::COMMANDED); /* TODO: Complete the constructor parameters */
 
     Thread::self()->suspend();
     return 0;
